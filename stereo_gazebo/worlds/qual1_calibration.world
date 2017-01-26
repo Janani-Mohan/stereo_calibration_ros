@@ -1,0 +1,1022 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="SRC_qual1">
+
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>150</iters>
+          <precon_iters>0</precon_iters>
+          <sor>1.400000</sor>
+          <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0.000000</cfm>
+          <erp>0.800000</erp>
+          <contact_max_correcting_vel>2000.000000</contact_max_correcting_vel>
+          <contact_surface_layer>0.01000</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+
+    <!-- A global light source -->
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>0.9 0.1 -0.7</direction>
+    </light>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <model name="checkerboard">
+    <pose>0.607243 -0.332425 0.827662 0 -1.5708 0</pose>
+    <static>true</static>
+      <link name="checkerboard">
+        <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <inertial>
+          <mass>0.01</mass>
+          <inertia> <!-- interias are tricky to compute -->
+            <!-- http://answers.gazebosim.org/question/4372/the-inertia-matrix-explained/ -->
+            <ixx>0.083</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+            <ixy>0.0</ixy>         <!-- for a box: ixy = 0 -->
+            <ixz>0.0</ixz>         <!-- for a box: ixz = 0 -->
+            <iyy>0.083</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+            <iyz>0.0</iyz>         <!-- for a box: iyz = 0 -->
+            <izz>0.083</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+          </inertia>
+        </inertial>
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="sqr11">
+        <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr12">
+        <pose>0.108 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr13">
+        <pose>0.216 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr14">
+        <pose>0.324 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr15">
+        <pose>0.432 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr16">
+        <pose>0.540 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr17">
+        <pose>0.648 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr18">
+        <pose>0.756 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr19">
+        <pose>0.864 0.0 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+
+        <visual name="sqr21">
+        <pose>0 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr22">
+        <pose>0.108 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr23">
+        <pose>0.216 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr24">
+        <pose>0.324 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr25">
+        <pose>0.432 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr26">
+        <pose>0.540 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr27">
+        <pose>0.648 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr28">
+        <pose>0.756 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr29">
+        <pose>0.864 0.108 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr31">
+        <pose>0.0 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr32">
+        <pose>0.108 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr33">
+        <pose>0.216 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr34">
+        <pose>0.324 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr35">
+        <pose>0.432 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr36">
+        <pose>0.540 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr37">
+        <pose>0.648 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr38">
+        <pose>0.756 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr39">
+        <pose>0.864 0.216 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr41">
+        <pose>0.0 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr42">
+        <pose>0.108 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr43">
+        <pose>0.216 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr44">
+        <pose>0.324 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr45">
+        <pose>0.432 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr46">
+        <pose>0.540 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr47">
+        <pose>0.648 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr48">
+        <pose>0.756 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr49">
+        <pose>0.864 0.324 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr51">
+        <pose>0.0 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr52">
+        <pose>0.108 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr53">
+        <pose>0.216 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr54">
+        <pose>0.324 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr55">
+        <pose>0.432 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr56">
+        <pose>0.540 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr57">
+        <pose>0.648 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr58">
+        <pose>0.756 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr59">
+        <pose>0.864 0.432 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+
+        <visual name="sqr61">
+        <pose>0 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr62">
+        <pose>0.108 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr63">
+        <pose>0.216 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr64">
+        <pose>0.324 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr65">
+        <pose>0.432 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr66">
+        <pose>0.540 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr67">
+        <pose>0.648 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr68">
+        <pose>0.756 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr69">
+        <pose>0.864 0.540 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr71">
+        <pose>0.0 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr72">
+        <pose>0.108 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr73">
+        <pose>0.216 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr74">
+        <pose>0.324 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr75">
+        <pose>0.432 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr76">
+        <pose>0.540 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr77">
+        <pose>0.648 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr78">
+        <pose>0.756 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+
+        <visual name="sqr79">
+        <pose>0.864 0.648 0.0 0.0 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.108 0.108 0.005</size>
+            </box>
+          </geometry>
+  	      <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
+          </material>
+        </visual>
+        </link>
+    </model>
+
+  </world>
+</sdf>
