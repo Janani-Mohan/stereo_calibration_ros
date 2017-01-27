@@ -1,6 +1,8 @@
 #include "cornerdetector.h"
 
 static const std::string OPENCV_WINDOW_1 = "Corner Detection";
+int flag = 0;
+int i = 0;
 
 CornerDetector::CornerDetector(ros::NodeHandle nh) {
     m_image_sub = nh.subscribe("/multisense_sl/camera/left/image_raw", 1, &CornerDetector::imageCB, this);
@@ -10,10 +12,11 @@ void CornerDetector::imageCB(const sensor_msgs::ImageConstPtr& img)
  {
 
    cv_bridge::CvImagePtr inMsgPtr;
+   geometry_msgs::Point pixelCoordinates;
 
    try
     {
-        inMsgPtr = cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8); // core dumped when using 16 bit
+        inMsgPtr = cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8); 
     }
     catch(cv_bridge::Exception& e)
     {
@@ -33,6 +36,14 @@ void CornerDetector::imageCB(const sensor_msgs::ImageConstPtr& img)
 	drawChessboardCorners(inMsgPtr->image, patternsize, cv::Mat(corners), patternfound);
 
 	cv::imshow(OPENCV_WINDOW_1, inMsgPtr->image);
+	
+	if (flag <= 48){
+		pixelCoordinates.x = corners[flag].x;
+        pixelCoordinates.y = corners[flag].y;
+        std::cout<<"Corners Detected at x: "<<pixelCoordinates.x<<" ,y: "<<pixelCoordinates.y<<std::endl;
+        flag ++;
+    }
+
 	cv::waitKey(3);
 }
 
