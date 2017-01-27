@@ -9,11 +9,19 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
-)
+  pcl_conversions
+  pcl_ros
+  tf
+  tf_conversions
+ )
 find_package(OpenCV 2.4 REQUIRED core gpu imgproc calib3d highgui)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
+include_directories(SYSTEM ${PCL_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -103,7 +111,7 @@ find_package(OpenCV 2.4 REQUIRED core gpu imgproc calib3d highgui)
 catkin_package(
 	INCLUDE_DIRS include
 #  LIBRARIES stereo_perception
-#  CATKIN_DEPENDS cv_bridge opencv2 rospy sensor_msgs std_msgs
+   CATKIN_DEPENDS cv_bridge opencv2 roscpp sensor_msgs std_msgs pcl_conversions pcl_ros tf
 #  DEPENDS system_lib
 )
 
@@ -140,6 +148,7 @@ add_dependencies(stereo_perception_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${ca
 ## Specify libraries to link a library or executable target against
  target_link_libraries(stereo_perception_node
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES} ${PCL_LIBRARIES} 
 )
 
 #############
