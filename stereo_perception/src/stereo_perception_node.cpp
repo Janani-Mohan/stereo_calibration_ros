@@ -15,8 +15,8 @@ std::vector<geometry_msgs::Point> outputMessages(maxCorners);
 int once =1;
 CornerDetector::CornerDetector(ros::NodeHandle nh) {
     m_image_sub = nh.subscribe("/multisense_sl/camera/left/image_rect_color", 1, &CornerDetector::imageCB, this);
-    m_dispimg_sub = nh.subscribe("/multisense_sl/camera/disparity",1,&CornerDetector::dispCB,this);
-    m_laserCloud_sub = nh.subscribe("/multisense_sl/camera/points2",1, &CornerDetector::laserCloudCB, this);
+    m_dispimg_sub = nh.subscribe("/multisense_sl/camera/disparity",10,&CornerDetector::dispCB,this);
+    m_laserCloud_sub = nh.subscribe("/multisense_sl/camera/points2",10, &CornerDetector::laserCloudCB, this);
 }
 
 bool CornerDetector::getPose(int index, geometry_msgs::Point &pixelCoordinates){
@@ -78,10 +78,10 @@ bool CornerDetector::getPose(int index, geometry_msgs::Point &pixelCoordinates){
     if (!((msg.x==0)&&(msg.y==0)&&(msg.z==0))){
     	poseXYZDetected = true;
     }
- 
+
     //    ROS_INFO("Updating Message at index :%d",index );
     outputMessages[index]=msg;
-    ROS_INFO("Final coordinates x: %0.2f, y: %0.2f, z: %0.2f",outputMessages[index].x,outputMessages[index].y,outputMessages[index].z);
+    ROS_INFO("Final coordinates index:%d x: %0.2f, y: %0.2f, z: %0.2f",index,outputMessages[index].x,outputMessages[index].y,outputMessages[index].z);
     return poseXYZDetected;
 }
 
@@ -92,7 +92,7 @@ void CornerDetector::imageCB(const sensor_msgs::ImageConstPtr& img) {
    cv::Mat image;
    try
     {
-        inMsgPtr = cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8); 
+        inMsgPtr = cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8);
     }
     catch(cv_bridge::Exception& e)
     {
@@ -116,7 +116,7 @@ void CornerDetector::imageCB(const sensor_msgs::ImageConstPtr& img) {
 
 	cv::imshow(OPENCV_WINDOW_1, inMsgPtr->image);
 	ROS_WARN("Corners :%d",corners.size());
-	
+
 	for(int flag =0;flag <48;flag++){
 		pixelCoordinates.x = corners[flag].x;
         pixelCoordinates.y = corners[flag].y;
@@ -125,8 +125,8 @@ void CornerDetector::imageCB(const sensor_msgs::ImageConstPtr& img) {
     }
     once = 0;
     }
- 
-	cv::waitKey(3);
+
+	cv::waitKey(1);
 	// ROS_INFO("Got image coordinates");
 }
 
@@ -174,9 +174,8 @@ void CornerDetector::generateOrganizedCloud( const cv::Mat &dispImage,
 	cv::Mat xyz;
 	int width=dispImage.cols;
 	int height=dispImage.rows;
-	
-	
-	ROS_INFO("w:%d h:%d",width,height);	
+
+
 	cloud->height=height;
 	cloud->width=width;
 	cloud->resize(width*height);
@@ -199,12 +198,53 @@ void CornerDetector::generateOrganizedCloud( const cv::Mat &dispImage,
 void CornerDetector::calculatePose()
 {
 	geometry_msgs::Point pixelCoordinates;
-	for (int i = 0;i<corners.size();i++){
-		pixelCoordinates.x = corners[i].x;
-		pixelCoordinates.y = corners[i].y;
-		bool poseFound = getPose(flag,pixelCoordinates);
+	for (int j=0;j<=48;j++){
+		pixelCoordinates.x = corners[j].x;
+		pixelCoordinates.y = corners[j].y;
+		bool poseFound = getPose(j,pixelCoordinates);
 	}
 }
+void CornerDetector::calculateGroundTruth()
+{
+  double origin_x = 0.607243;
+  double origin_y = -0.332425;
+  double origin_z = 0.827662;
+  double square_size = 0.108;
+  int rows = 8;
+  int columns = 6;
+  double cornersGt_y[8];
+  double cornersGt_z[8];
+
+  for(int i = 0; i < columns;  i++){
+    cornersGt_y[i] = (origin_y + (square_size/2) + i*square_size);
+    // cout << cornersGt_y[i]<<endl<<endl<<endl;
+  }
+  for(int j = 0; j < rows;  j++){
+    cornersGt_z[j] = (origin_z + (square_size/2) + j*square_size);
+    // cout << cornersGt_z[j]<<endl<<endl<<endl;
+  }
+  double cornersGroundTruth[48][3];
+  int l = 0;
+  int j = 0;
+  int k = 0;
+  for(int i = 0; i < (rows-1)*(columns-1) ; i++){
+      cornersGroundTruth[i][j] = origin_x;
+      cornersGroundTruth[i][j+1] = cornersGt_y[l];
+      cornersGroundTruth[i][j+2] = cornersGt_z[k];
+      l = l + 1;
+      if(l >= columns){
+        l = 0;
+        k = k + 1;
+      }
+  }
+for(int i = 0; i < (rows-1)*(columns-1) ; i++){
+   for(int j = 0; j < 3; j++){
+    std::cout << cornersGroundTruth[i][j]<<"\t";
+  }
+  std::cout<<std::endl;
+}
+}
+
 int main(int argc, char** argv)
 {
 	ros::init(argc, argv, "Corner_Detector");
@@ -228,15 +268,19 @@ int main(int argc, char** argv)
     qMatrix(3,2) = -fy;
     qMatrix(3,3) =  0.0f;
 	CornerDetector detect(nh_);
+	detect.calculateGroundTruth();
 	while(ros::ok()){
 		ROS_INFO("out %d , %d",read_dispImg,cornersDetected);
 		if (read_dispImg && cornersDetected){
-			for(int i = 0; i<  corners.size(); i++)
+			for(int i = 0; i< corners.size(); i++)
 			{
 				ROS_INFO("Going calculate pose");
 				detect.calculatePose();
 			}
+
+			
 		}
+
 		ros::spinOnce();
 		loopRate.sleep();
 	}

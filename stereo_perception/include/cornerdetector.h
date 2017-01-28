@@ -50,6 +50,7 @@ private :
 												   StereoPointCloudColor::Ptr &cloud);
 		void laserCloudCB(const sensor_msgs::PointCloud2 &msg);
 		bool getPose(int index, geometry_msgs::Point &pixelCoordinates);
+		
 
 public:
   /**
@@ -58,6 +59,7 @@ public:
    */
 	CornerDetector(ros::NodeHandle nh);
 	void calculatePose();
+	void calculateGroundTruth();
 
 };
 
