@@ -30,7 +30,7 @@
  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-  <node name="camera_frame" pkg="tf" type="static_transform_publisher" args="0 0 1.26 0 0 0 /world /left_camera_optical_frame 100" />
+  <node name="camera_frame" pkg="tf" type="static_transform_publisher" args="0 0 1.26 -1.5708 3.14 1.5708 /world /left_camera_optical_frame 100"/>
 
   <!-- Stereo image processing -->
   <node ns="multisense_sl/camera" name="stereo_proc" pkg="stereo_image_proc" type="stereo_image_proc" respawn="false" output="log">
