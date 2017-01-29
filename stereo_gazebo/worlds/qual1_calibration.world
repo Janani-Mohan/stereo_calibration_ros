@@ -44,7 +44,7 @@
     </include>
 
     <model name="checkerboard">
-    <pose>0.607243 -0.332425 0.827662 0 -1.5708 0</pose>
+    <pose>1.0 -0.6 0.83 0 -1.5708 0</pose>
     <static>true</static>
       <link name="checkerboard">
         <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
